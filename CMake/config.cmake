@@ -45,6 +45,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_EXECUTABLE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(RTTR_INSTALL_DIR "${CMAKE_BINARY_DIR}/install")
 
+# OSX
+if(APPLE)
+  set(CMAKE_MACOSX_RPATH ON)
+ endif()		  
+
 # in order to group in visual studio the targets into solution filters
 set_property( GLOBAL PROPERTY USE_FOLDERS ON)
 
