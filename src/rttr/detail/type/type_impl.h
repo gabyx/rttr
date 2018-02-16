@@ -79,196 +79,196 @@ RTTR_INLINE type& type::operator=(const type& other) RTTR_NOEXCEPT
 
 RTTR_INLINE bool type::operator<(const type& other) const RTTR_NOEXCEPT
 {
-    return (m_type_data->type_index < other.m_type_data->type_index);
+    return (m_type_data < other.m_type_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 RTTR_INLINE bool type::operator>(const type& other) const RTTR_NOEXCEPT
 {
-    return (m_type_data->type_index > other.m_type_data->type_index);
+    return (m_type_data > other.m_type_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 RTTR_INLINE bool type::operator>=(const type& other) const RTTR_NOEXCEPT
 {
-    return (m_type_data->type_index >= other.m_type_data->type_index);
+    return (m_type_data >= other.m_type_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 RTTR_INLINE bool type::operator<=(const type& other) const RTTR_NOEXCEPT
 {
-    return (m_type_data->type_index <= other.m_type_data->type_index);
+    return (m_type_data <= other.m_type_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 RTTR_INLINE bool type::operator==(const type& other) const RTTR_NOEXCEPT
 {
-    return (m_type_data->type_index == other.m_type_data->type_index);
+    return (m_type_data == other.m_type_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 RTTR_INLINE bool type::operator!=(const type& other) const RTTR_NOEXCEPT
 {
-    return (m_type_data->type_index != other.m_type_data->type_index);
+    return (m_type_data != other.m_type_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 RTTR_INLINE type::type_id type::get_id() const RTTR_NOEXCEPT
 {
-    return m_type_data->type_index;
+    return reinterpret_cast<type::type_id>(m_type_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 RTTR_INLINE bool type::is_valid() const RTTR_NOEXCEPT
 {
-    return m_type_data->is_valid();
+    return m_type_data->is_valid;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 RTTR_INLINE type::operator bool() const RTTR_NOEXCEPT
 {
-    return m_type_data->is_valid();
+    return m_type_data->is_valid;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE type type::get_raw_type() const RTTR_NOEXCEPT
+RTTR_INLINE type type::get_raw_type() const RTTR_NOEXCEPT
 {
     return type(m_type_data->raw_type_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE type type::get_wrapped_type() const RTTR_NOEXCEPT
+RTTR_INLINE type type::get_wrapped_type() const RTTR_NOEXCEPT
 {
     return type(m_type_data->wrapped_type);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE type type::get_raw_array_type() const RTTR_NOEXCEPT
+RTTR_INLINE type type::get_raw_array_type() const RTTR_NOEXCEPT
 {
     return type(m_type_data->array_raw_type);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE string_view type::get_name() const RTTR_NOEXCEPT
+RTTR_INLINE string_view type::get_name() const RTTR_NOEXCEPT
 {
     return m_type_data->name;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE string_view type::get_full_name() const RTTR_NOEXCEPT
+RTTR_INLINE string_view type::get_full_name() const RTTR_NOEXCEPT
 {
     return m_type_data->type_name;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE std::size_t type::get_sizeof() const RTTR_NOEXCEPT
+RTTR_INLINE std::size_t type::get_sizeof() const RTTR_NOEXCEPT
 {
     return m_type_data->get_sizeof;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE std::size_t type::get_pointer_dimension() const RTTR_NOEXCEPT
+RTTR_INLINE std::size_t type::get_pointer_dimension() const RTTR_NOEXCEPT
 {
     return m_type_data->get_pointer_dimension;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_class() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_class() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_class);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_template_instantiation() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_template_instantiation() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_template_instantiation);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_enumeration() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_enumeration() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_enum);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_array() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_array() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_array);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_associative_container() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_associative_container() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_associative_container);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_sequential_container() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_sequential_container() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_sequential_container);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_pointer() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_pointer() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_pointer);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_arithmetic() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_arithmetic() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_arithmetic);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_function_pointer() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_function_pointer() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_function_pointer);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_member_object_pointer() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_member_object_pointer() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_member_object_pointer);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_member_function_pointer() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_member_function_pointer() const RTTR_NOEXCEPT
 {
     return m_type_data->type_trait_value(detail::type_trait_infos::is_member_function_pointer);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-RTTR_FORCE_INLINE bool type::is_wrapper() const RTTR_NOEXCEPT
+RTTR_INLINE bool type::is_wrapper() const RTTR_NOEXCEPT
 {
-    return m_type_data->wrapped_type->is_valid();
+    return m_type_data->wrapped_type->is_valid;
 }
 
 
@@ -299,7 +299,7 @@ struct type_getter
         // (a forward declaration is not enough because base_classes will not be found)
         using type_must_be_complete = char[ sizeof(T) ? 1: -1 ];
         (void) sizeof(type_must_be_complete);
-        static const type val = get_registration_manager<int>().add_item(make_type_data<T>());
+        static const type val = get_registration_manager().add_item(make_type_data<T>());
         return val;
     }
 };
@@ -315,7 +315,7 @@ struct type_getter<void>
 {
     static type get_type() RTTR_NOEXCEPT
     {
-        static const type val = get_registration_manager<int>().add_item(make_type_data<void>());
+        static const type val = get_registration_manager().add_item(make_type_data<void>());
         return val;
     }
 };
@@ -331,7 +331,7 @@ struct type_getter<T, typename std::enable_if<std::is_function<T>::value>::type>
 {
     static type get_type() RTTR_NOEXCEPT
     {
-        static const type val = get_registration_manager<int>().add_item(make_type_data<T>());
+        static const type val = get_registration_manager().add_item(make_type_data<T>());
         return val;
     }
 };
@@ -442,7 +442,7 @@ RTTR_INLINE void type::register_converter_func(F func)
     using source_type_orig = param_types_t<F, 0>;
     using source_type = remove_cv_t<remove_reference_t<source_type_orig>>;
 
-    get_registration_manager<int>().add_item(::rttr::detail::make_unique<type_converter<target_type, source_type, F>>(func));
+    get_registration_manager().add_item(::rttr::detail::make_unique<type_converter<target_type, source_type, F>>(func));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -461,7 +461,7 @@ void type::register_equal_comparator()
 {
     static_assert(detail::has_equal_operator<T>::value, "No equal operator for given type found.");
 
-    detail::get_registration_manager<int>().add_equal_cmp(::rttr::detail::make_unique<detail::type_equal_comparator<T>>());
+    detail::get_registration_manager().add_equal_cmp(::rttr::detail::make_unique<detail::type_equal_comparator<T>>());
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -471,7 +471,7 @@ void type::register_less_than_comparator()
 {
     static_assert(detail::has_less_than_operator<T>::value, "No less-than operator for given type found.");
 
-    detail::get_registration_manager<int>().add_less_than_cmp(::rttr::detail::make_unique<detail::type_less_than_comparator<T>>());
+    detail::get_registration_manager().add_less_than_cmp(::rttr::detail::make_unique<detail::type_less_than_comparator<T>>());
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

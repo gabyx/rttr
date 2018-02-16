@@ -569,6 +569,19 @@ auto select_const(ReturnType (ClassType::*func)(Args...) const) -> decltype(func
     return func;
 }
 
+#ifndef RTTR_NO_CXX17_NOEXCEPT_FUNC_TYPE
+/*!
+ * \brief Overload with `noexcept` function type.
+ *
+ * \see select_const
+ */
+template<typename ClassType, typename ReturnType, typename... Args>
+auto select_const(ReturnType (ClassType::*func)(Args...) const noexcept) -> decltype(func)
+{
+    return func;
+}
+#endif
+
 /*!
  * \brief This is a helper function to register overloaded const member functions.
  *
@@ -610,6 +623,20 @@ auto select_non_const(ReturnType(ClassType::*func)(Args...)) -> decltype(func)
 {
     return func;
 }
+
+#ifndef RTTR_NO_CXX17_NOEXCEPT_FUNC_TYPE
+
+/*!
+ * \brief Overload with `noexcept` function type.
+ *
+ * \see select_const
+ */
+template<typename ClassType, typename ReturnType, typename... Args>
+auto select_non_const(ReturnType(ClassType::*func)(Args...) noexcept) -> decltype(func)
+{
+    return func;
+}
+#endif
 
 /*!
  * The \ref metadata function can be used to add additional meta data information during the
@@ -716,6 +743,28 @@ RTTR_INLINE detail::parameter_names<detail::decay_t<TArgs>...> parameter_names(T
  *
  */
 #define RTTR_REGISTRATION
+
+/*!
+ * \brief Use this macro to automatically register your reflection information inside a plugin to RTTR.
+ *
+ * Use it in following way:
+ * \code{.cpp}
+ *
+ *   int some_method() { return 42; }
+ *
+ *   RTTR_PLUGIN_REGISTRATION
+ *   {
+ *       rttr::registration::method("some_method", &some_method);
+ *   }
+ * \endcode
+ *
+ * Just place the macro in global scope in a cpp file.
+ *
+ * \remark It is not possible to place the macro multiple times in one cpp file.
+ *
+ * \see library
+ */
+#define RTTR_PLUGIN_REGISTRATION
 
 /*!
  * \brief Place this macro inside a class, when you need to reflect properties,
