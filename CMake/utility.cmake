@@ -453,6 +453,22 @@ macro(enable_rtti _ENABLE)
   endif()
 endmacro()
 
+####################################################################################
+# enables or disables the user of RTTI for all following source files.
+# _ENABLE If true, will enable RTTI, otherwise will disable RTTI.
+####################################################################################
+macro(enable_address_sanitizer target)
+  if (MSVC)
+  elseif(CMAKE_COMPILER_IS_GNUCXX )
+    target_compile_options(${target} PUBLIC  $<$<CONFIG:Debug>:-fsanitize=address>)
+  elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    #target_compile_options(${target} PUBLIC $<$<CONFIG:Debug>:-fsanitize=address>)
+    target_compile_options(${target} PUBLIC $<$<CONFIG:Debug>:-fsanitize=leak>)
+    set_target_properties(${target} PROPERTIES LINK_FLAGS "-fsanitize=address")
+  else()
+    message(FATAL_ERROR "Don't know how to enable/disable RTTI for this compiler.")
+  endif()
+endmacro()
 
 ####################################################################################
 # Returns the name of the used compiler.

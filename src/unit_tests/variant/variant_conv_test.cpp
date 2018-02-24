@@ -78,6 +78,8 @@ struct base
 {
     int dummy;
     RTTR_ENABLE()
+    public:
+    virtual ~base() = default;
 };
 
 struct derived : virtual base

@@ -33,6 +33,8 @@ using namespace rttr;
 struct instance_base
 {
     RTTR_ENABLE()
+    public:
+        virtual ~instance_base() = default;
 };
 
 struct instance_derived : instance_base

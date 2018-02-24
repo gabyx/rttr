@@ -45,7 +45,7 @@ if (${BUILD_RTTR_DYNAMIC})
     
     target_compile_definitions(rttr_core PRIVATE RTTR_DLL_EXPORTS)
     target_compile_definitions(rttr_core PUBLIC RTTR_DLL)
-
+    enable_address_sanitizer(rttr_core)
     
 
     set_target_properties(rttr_core PROPERTIES
@@ -101,7 +101,8 @@ if (BUILD_STATIC)
                           DEBUG_POSTFIX ${RTTR_DEBUG_POSTFIX})
                           
     target_link_libraries(rttr_core_lib PRIVATE ${CMAKE_DL_LIBS})
-    
+    enable_address_sanitizer(rttr_core_lib)
+
     if (MSVC)
         set_target_properties(rttr_core_lib PROPERTIES OUTPUT_NAME librttr_core)
     elseif (CMAKE_COMPILER_IS_GNUCXX)
